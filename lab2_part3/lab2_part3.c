@@ -6,23 +6,29 @@
 
 int main(){
   
-	volatile int * reg = (int *) 0xFF200028; // reg base addr
+	volatile int * reg = (int *) 0xFF200028; // reg base addr stores the delay between shifts
+
+	// initialize to a medium delay
 	*(reg) = 8000000;
+	
 	printf("Greetings and salutations\n");
 	char c[80];
 	int i;
-	char junk[80];
+	
 	while(1){
 		printf("Please enter a speed (1-9):");
 		scanf("%s", c);
 		fflush(stdin);
+
 		i = c[0]-'0';
+		// convert char to int
+
 		if(strlen(c) > 1 || !isdigit(c[0]) || i < 1 || i > 9){
 			printf("Try again idiot!\n");
 			continue;
-		}
+		} // make sure it is one char between 1 and 9
 	        	
-		switch(i){
+		switch(i){ // set a predefined speed on a scale from 1 to 9; 
 			case 0: *reg = 0; break;
 			case 1: *reg = 24000000;break;
 			case 2: *reg = 16000000;break;

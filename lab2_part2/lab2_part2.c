@@ -59,44 +59,48 @@ int main(void)
 
 	while(1){
 
-		initCounters ();
-		location = 5; 
-		num_invalid = 0;
-		while(location < 0 || location > 3){
+		initCounters (); // reset counter
+		location = 5; // invalid location
+		num_invalid = 0; // number of invalid blocks
+
+		while(location < 0 || location > 3){ // repeat until valid choice is made
 			printf("Choose memory block to write to:\n");
 			for(i = 0; i < 4; i++)
 				printf("  %d: %s\n",i,locations[i]); // (0=FPGA Onchip, 1=FPGA SDRAM, 2=HPS Onchip, 3=HPS SDRAM):");
 			scanf("%d", &location);
-			fflush(stdin);
+			fflush(stdin); // flush input buffer to get rid of extra stuff
 		}
+
 		avail_mem = location ? 32 : 16; // 16kb for location 0, 32kb for the rest
 
 		printf("\nWriting %dKB to %s.\n", avail_mem, locations[location]);
 
-		 avail_mem*=256; // set to num blocks
+		avail_mem*=256; // set to num blocks
 
 
-		time = getCycles();
+		time = getCycles(); // get the starting time
 
 		for(adr = addresses[location], val = startval, i = 0;
 			(i < avail_mem); i++){
 				*(adr++) = val++;
-		}
+		} // write the array to  memory
 
-		time = getCycles() - time;
+		time = getCycles() - time; // get the finishing time
+
 		printf ("Elapsed Time: %d cycles\n", time);
 
 
 		printf("\nReading %dKB from %s.\n", avail_mem/256, locations[location]);
 		int j;
-		time = getCycles();
+		time = getCycles(); // get starting time
 
 		for(adr = addresses[location], val = startval, i = 0;
 			i < avail_mem; i++)
 				if(*(adr++) != val++)
 					num_invalid++;
+			// read array from memory, count how many blocks were invalid
 
-		time = getCycles() - time;
+		time = getCycles() - time; // get finishing time
 		printf ("Elapsed Time: %d cycles\n", time);
 
 		printf("Number of invalid blocks: %d\n\n\n", num_invalid);
