@@ -1,0 +1,26 @@
+
+
+module reg32(
+input clock, 
+input reset_n,
+input [31:0] D,
+input [3:0] byteenable,
+output reg [31:0] Q
+);
+always @ (posedge clock) begin
+	if(reset_n)
+		Q <= 0;
+	else begin
+		case(byteenable) begin
+			4'b1111: Q <= D;
+			4'b0011: Q <= D[15:0];
+			4'b1100: Q <= D[31:16];
+			4'b0001: Q <= D[7:0];
+			4'b0010: Q <= D[15:8];
+			4'b0100: Q <= D[23:16];
+			4'b1000: Q <= D[31:24];
+			default: Q <= 0;
+		end
+	end
+end
+endmodule

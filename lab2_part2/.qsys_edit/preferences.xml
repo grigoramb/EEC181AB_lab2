@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<preferences>
+ <debug showDebugMenu="0" />
+ <systemtable filter="All Interfaces">
+  <columns>
+   <connections preferredWidth="159" />
+   <irq preferredWidth="47" />
+   <description preferredWidth="314" />
+  </columns>
+ </systemtable>
+ <library
+   expandedCategories="Library,Library/Memory Interfaces and Controllers,Project,Library/Memory Interfaces and Controllers/SDRAM" />
+ <window width="1938" height="1050" x="-9" y="-9" />
+ <hdlexample language="VERILOG" />
+</preferences>
