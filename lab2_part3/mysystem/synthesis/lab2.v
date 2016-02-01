@@ -160,8 +160,8 @@ module lab2(
 				pattern <= ~pattern;    
 				if(~pattern) begin // switching to custom
 					custom[6] <= space;     // initially off screen
-					custom[5] <= ~SW[7:0];    // right most display
-					custom[4] <= {5'h1F,~SW[9:8]};
+					custom[5] <= {1'b1,~SW[6:0]};    // right most display
+					custom[4] <= {5'hF,~SW[9:7]};
 					custom[3] <= space;
 					custom[2] <= space;
 					custom[1] <= space;
